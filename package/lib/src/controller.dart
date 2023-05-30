@@ -792,7 +792,8 @@ class MeeduPlayerController {
         if (desktopOrWeb) {
           screenManager.setWindowsFullScreen(true, this);
         } else {
-          screenManager.setFullScreenOverlaysAndOrientations();
+          // 暂时注释，不支持xcode 13.4
+          // screenManager.setFullScreenOverlaysAndOrientations();
         }
       }
     }

@@ -1,4 +1,4 @@
-import 'package:auto_orientation/auto_orientation.dart';
+// import 'package:auto_orientation/auto_orientation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_meedu_media_kit/meedu_player.dart';
 import 'package:window_manager/window_manager.dart';
@@ -80,16 +80,16 @@ class ScreenManager {
   }
 
   /// hide the statusBar and the navigation bar, set only landscape mode only if forceLandScapeInFullscreen is true
-  Future<void> setFullScreenOverlaysAndOrientations({
-    hideOverLays = true,
-  }) async {
-    forceLandScapeInFullscreen
-        ? AutoOrientation.landscapeAutoMode(forceSensor: true)
-        : AutoOrientation.fullAutoMode();
+  // Future<void> setFullScreenOverlaysAndOrientations({
+  //   hideOverLays = true,
+  // }) async {
+  //   forceLandScapeInFullscreen
+  //       ? AutoOrientation.landscapeAutoMode(forceSensor: true)
+  //       : AutoOrientation.fullAutoMode();
 
-    if (hideOverLays) {
-      setOverlays(false);
-    }
-    //AutoOrientation.landscapeAutoMode(forceSensor: true);
-  }
+  //   if (hideOverLays) {
+  //     setOverlays(false);
+  //   }
+  //   //AutoOrientation.landscapeAutoMode(forceSensor: true);
+  // }
 }
