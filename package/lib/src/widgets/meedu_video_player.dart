@@ -3,6 +3,7 @@ import 'package:flutter_meedu_media_kit/meedu_player.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/controls_container.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/primary/primary_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/secondary/secondary_player_controls.dart';
+import 'package:flutter_meedu_media_kit/src/widgets/styles/youtube/youtube_player_controls.dart';
 import '../helpers/shortcuts/intent_action_map.dart';
 
 /// An ActionDispatcher that logs all the actions that it invokes.
@@ -173,6 +174,11 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.secondary)
                           SecondaryVideoPlayerControls(
+                            responsive: _.responsive,
+                          ),
+                        if (_.controlsEnabled &&
+                            _.controlsStyle == ControlsStyle.youtube)
+                          YoutubeVideoPlayerControls(
                             responsive: _.responsive,
                           ),
                         if (_.controlsEnabled &&

@@ -19,6 +19,7 @@ enum ControlsStyle {
 
   /// The custom style is used to apply a custom style which you can provide in MeeduPlayerController.
   custom,
+  youtube
 }
 
 class MeeduPlayerController {
@@ -762,9 +763,9 @@ class MeeduPlayerController {
     //customDebugPrint(visible);
     _showControls.value = visible;
     _timer?.cancel();
-    if (visible) {
-      _hideTaskControls();
-    }
+    // if (visible) {
+    //   _hideTaskControls();
+    // }
   }
 
   /// create a tasks to hide controls after certain time
