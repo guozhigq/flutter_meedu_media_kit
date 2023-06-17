@@ -471,7 +471,7 @@ class MeeduPlayerController {
         }),
         videoPlayerController!.streams.volume.listen((event) {
           if (!mute.value && _volumeBeforeMute != event) {
-            _volumeBeforeMute = event;
+            _volumeBeforeMute = event / 100;
           }
         }),
       ],
@@ -656,7 +656,7 @@ class MeeduPlayerController {
   /// [enabled] if is true the video player is muted
   Future<void> setMute(bool enabled) async {
     if (enabled) {
-      _volumeBeforeMute = _videoPlayerController!.state.volume;
+      _volumeBeforeMute = _videoPlayerController!.state.volume / 100;
     }
     _mute.value = enabled;
     await setVolume(enabled ? 0 : _volumeBeforeMute, videoPlayerVolume: true);
@@ -687,7 +687,14 @@ class MeeduPlayerController {
 
   Future<void> getCurrentVolume() async {
     if (desktopOrWeb) {
-      _currentVolume.value = _videoPlayerController?.state.volume ?? 0;
+      print(
+          "_videoPlayerController?.state.volume ${_videoPlayerController?.state.volume}");
+      if ((_videoPlayerController?.state.volume ?? 0) == 1.0) {
+        _currentVolume.value = (_videoPlayerController?.state.volume ?? 0);
+      } else {
+        _currentVolume.value =
+            (_videoPlayerController?.state.volume ?? 0) / 100;
+      }
     } else {
       try {
         _currentVolume.value = await VolumeController().getVolume();
@@ -721,22 +728,27 @@ class MeeduPlayerController {
   /// linear scale.
   Future<void> setVolume(double volumeNew,
       {bool videoPlayerVolume = false}) async {
-    if (volumeNew >= 0.0 && volumeNew <= 1.0) {
-      volume.value = volumeNew;
-      if (desktopOrWeb || videoPlayerVolume) {
-        customDebugPrint("volume is $volumeNew");
-        await _videoPlayerController?.setVolume(volumeNew);
-        volumeUpdated();
-      } else {
-        try {
-          VolumeController().setVolume(volumeNew, showSystemUI: false);
-        } catch (_) {
-          customDebugPrint(_);
-        }
+    if (volumeNew < 0.0) {
+      volumeNew = 0.0;
+    } else if (volumeNew > 1.0) {
+      volumeNew = 1.0;
+    }
+    if (volume.value == volumeNew) {
+      return;
+    }
+    volume.value = volumeNew;
+
+    if (desktopOrWeb || videoPlayerVolume) {
+      customDebugPrint("volume is $volumeNew");
+      await _videoPlayerController?.setVolume(volumeNew * 100);
+      volumeUpdated();
+    } else {
+      try {
+        VolumeController().setVolume(volumeNew, showSystemUI: false);
+      } catch (_) {
+        customDebugPrint(_);
       }
     }
-
-    //
   }
 
   void volumeUpdated() {
