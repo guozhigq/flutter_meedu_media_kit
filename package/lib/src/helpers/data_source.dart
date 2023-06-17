@@ -20,12 +20,13 @@ enum DataSourceType {
 
 class DataSource {
   File? file;
-  String? source, package;
+  String? source, audioSource, package;
   DataSourceType type;
   Map<String, String>? httpHeaders; // for headers
   DataSource({
     this.file,
     this.source,
+    this.audioSource,
     required this.type,
     this.package,
     this.httpHeaders,
@@ -34,6 +35,7 @@ class DataSource {
   DataSource copyWith({
     File? file,
     String? source,
+    String? audioSource,
     String? package,
     DataSourceType? type,
     Map<String, String>? httpHeaders,
@@ -41,6 +43,7 @@ class DataSource {
     return DataSource(
       file: file ?? this.file,
       source: source ?? this.source,
+      audioSource: audioSource ?? '',
       type: type ?? this.type,
       package: package ?? this.package,
       httpHeaders: httpHeaders ?? this.httpHeaders,

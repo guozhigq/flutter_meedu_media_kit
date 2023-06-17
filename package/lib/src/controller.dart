@@ -367,6 +367,14 @@ class MeeduPlayerController {
 
     // (player.platform as libmpvPlayer).setProperty("demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
 
+    if (dataSource.audioSource != '') {
+      await (player.platform as libmpvPlayer).setProperty(
+          'audio-files',
+          UniversalPlatform.isWindows
+              ? dataSource.audioSource!.replaceAll(';', '\\;')
+              : dataSource.audioSource!.replaceAll(':', '\\:'));
+    }
+
     _videoController = _videoController ?? VideoController(player);
     player.setPlaylistMode(PlaylistMode.loop);
 
