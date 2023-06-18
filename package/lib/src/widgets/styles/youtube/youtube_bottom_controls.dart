@@ -49,7 +49,7 @@ class YoutubeBottomControls extends StatelessWidget {
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       if (_.bottomRight != null) ...[_.bottomRight!, const SizedBox(width: 5)],
       if (_.enabledButtons.pip) PipButton(responsive: responsive),
-      if (_.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
+      // if (_.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
       if (_.enabledButtons.playBackSpeed)
         PlayBackSpeedButton(responsive: responsive, textStyle: textStyle),
       if (_.enabledButtons.muteAndSound)

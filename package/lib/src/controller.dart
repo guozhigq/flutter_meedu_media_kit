@@ -566,9 +566,10 @@ class MeeduPlayerController {
 
   /// seek the current video position
   Future<void> seekTo(Duration position) async {
-    if (position >= duration.value) {
-      position = duration.value - const Duration(milliseconds: 100);
-    }
+    /// TODO: fix [duration.value] always 0
+    // if (position >= duration.value) {
+    //   position = duration.value - const Duration(milliseconds: 100);
+    // }
     if (position < Duration.zero) {
       position = Duration.zero;
     }

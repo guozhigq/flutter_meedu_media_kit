@@ -32,9 +32,9 @@ class PlayerButton extends StatelessWidget {
       },
       child: customIcon ??
           Container(
-            width: size,
-            height: size,
-            padding: EdgeInsets.all(size * 0.25),
+            width: size * 0.8,
+            height: size * 0.8,
+            padding: EdgeInsets.all(size * 0.1),
             decoration: BoxDecoration(
               color: backgroundColor,
               shape: circle ? BoxShape.circle : BoxShape.rectangle,
