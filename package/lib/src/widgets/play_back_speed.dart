@@ -16,7 +16,9 @@ class PlayBackSpeedButton extends StatelessWidget {
         (__) {
       return TextButton(
         style: TextButton.styleFrom(
-          padding: EdgeInsets.all(responsive.buttonSize() * 0.25),
+          minimumSize: const Size(40, 20),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          // padding: EdgeInsets.all(responsive.buttonSize() * 0.25),
         ),
         onPressed: () {
           _.customDebugPrint("s");

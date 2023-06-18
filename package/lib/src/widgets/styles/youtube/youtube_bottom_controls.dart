@@ -45,20 +45,24 @@ class YoutubeBottomControls extends StatelessWidget {
         ],
       ),
     );
-    Widget otherControls =
-        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      if (_.bottomRight != null) ...[_.bottomRight!, const SizedBox(width: 5)],
-      if (_.enabledButtons.pip) PipButton(responsive: responsive),
-      // if (_.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
-      if (_.enabledButtons.playBackSpeed)
-        PlayBackSpeedButton(responsive: responsive, textStyle: textStyle),
-      if (_.enabledButtons.muteAndSound)
-        MuteSoundButton(responsive: responsive),
-      if (_.enabledButtons.fullscreen)
-        FullscreenButton(
-          size: responsive.buttonSize(),
-        )
-    ]);
+    Widget otherControls = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        if (_.bottomRight != null) ...[
+          _.bottomRight!,
+          const SizedBox(width: 5)
+        ],
+        if (_.enabledButtons.playBackSpeed)
+          PlayBackSpeedButton(responsive: responsive, textStyle: textStyle),
+        if (_.enabledButtons.videoFit) VideoFitButton(responsive: responsive),
+        if (_.enabledButtons.muteAndSound)
+          MuteSoundButton(responsive: responsive),
+        if (_.enabledButtons.pip) PipButton(responsive: responsive),
+        if (_.enabledButtons.fullscreen)
+          FullscreenButton(size: responsive.buttonSize()),
+        const SizedBox(width: 10)
+      ],
+    );
     return Positioned(
       left: 0,
       right: 0,

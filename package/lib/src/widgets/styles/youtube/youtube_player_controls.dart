@@ -23,10 +23,7 @@ class YoutubeVideoPlayerControls extends StatelessWidget {
               left: 0,
               right: 0,
               top: 0,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: _.header!,
-              ),
+              child: _.header!,
             ),
           SizedBox(
             height: responsive.height,

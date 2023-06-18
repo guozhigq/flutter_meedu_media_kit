@@ -23,18 +23,19 @@ class PlayerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      style: TextButton.styleFrom(minimumSize: const Size(20, 20)),
-      //padding: EdgeInsets.zero,
-      //minSize: 20,
+      style: TextButton.styleFrom(
+        minimumSize: const Size(30, 20),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
       onPressed: () {
         onPressed();
         MeeduPlayerController.of(context).controls = true;
       },
       child: customIcon ??
           Container(
-            width: size * 0.8,
-            height: size * 0.8,
-            padding: EdgeInsets.all(size * 0.1),
+            width: size * 0.7,
+            height: size * 0.5,
+            // padding: EdgeInsets.all(size * 0.1),
             decoration: BoxDecoration(
               color: backgroundColor,
               shape: circle ? BoxShape.circle : BoxShape.rectangle,

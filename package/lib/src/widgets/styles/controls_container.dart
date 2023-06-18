@@ -72,6 +72,9 @@ class _ControlsContainerState extends State<ControlsContainer> {
         //_dragInitialDelta = Offset.zero;
       });
     }
+    _tappedOnce = Timer(const Duration(milliseconds: 3000), () {
+      _.controls = !_.showControls.value;
+    });
   }
 
   void _rewind(BuildContext context, MeeduPlayerController controller) =>

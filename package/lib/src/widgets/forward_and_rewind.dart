@@ -24,14 +24,14 @@ class VideoCoreForwardAndRewind extends StatelessWidget {
       rewind: CustomOpacityTransition(
         visible: showRewind,
         child: ForwardAndRewindRippleSide(
-          text: "$rewindSeconds Sec",
+          text: "$rewindSeconds 秒",
           side: RippleSide.left,
         ),
       ),
       forward: CustomOpacityTransition(
         visible: showForward,
         child: ForwardAndRewindRippleSide(
-          text: "$forwardSeconds Sec",
+          text: "$forwardSeconds 秒",
           side: RippleSide.right,
         ),
       ),
