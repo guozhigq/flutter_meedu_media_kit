@@ -367,7 +367,7 @@ class MeeduPlayerController {
 
     // (player.platform as libmpvPlayer).setProperty("demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
 
-    if (dataSource.audioSource != '') {
+    if (dataSource.audioSource != '' && dataSource.audioSource != null) {
       await (player.platform as libmpvPlayer).setProperty(
           'audio-files',
           UniversalPlatform.isWindows

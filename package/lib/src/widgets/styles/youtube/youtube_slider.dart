@@ -8,7 +8,7 @@ class YoutubePlayerSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final _ = MeeduPlayerController.of(context);
     return SizedBox(
-      height: 8,
+      height: 10,
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [

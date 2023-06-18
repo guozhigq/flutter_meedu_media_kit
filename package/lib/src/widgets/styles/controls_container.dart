@@ -73,7 +73,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
       });
     }
     _tappedOnce = Timer(const Duration(milliseconds: 3000), () {
-      _.controls = !_.showControls.value;
+      _.controls = false;
     });
   }
 
