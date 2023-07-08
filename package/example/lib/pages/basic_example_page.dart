@@ -12,7 +12,7 @@ class BasicExamplePage extends StatefulWidget {
 
 class _BasicExamplePageState extends State<BasicExamplePage> {
   final _meeduPlayerController = MeeduPlayerController(
-    controlsStyle: ControlsStyle.primary,
+    controlsStyle: ControlsStyle.youtube,
     enabledButtons: const EnabledButtons(pip: true),
     // enabledControls: const EnabledControls(doubleTapToSeek: false),
     pipEnabled: true,

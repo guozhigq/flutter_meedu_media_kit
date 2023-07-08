@@ -117,6 +117,7 @@ class MeeduPlayerController {
     BoxFit.fitWidth,
     BoxFit.scaleDown
   ];
+  Widget? child;
 
   /// use this stream to listen the player data events like none, loading, loaded, error
   Stream<DataStatus> get onDataStatusChanged => dataStatus.status.stream;
@@ -296,6 +297,7 @@ class MeeduPlayerController {
     Responsive? responsive,
     this.durations = const Durations(),
     this.onVideoPlayerClosed,
+    this.child,
   }) {
     if (responsive != null) {
       this.responsive = responsive;
@@ -850,9 +852,11 @@ class MeeduPlayerController {
     Widget? header,
     Widget? bottomRight,
     Duration seekTo = Duration.zero,
+    Widget? child,
   }) async {
     this.header = header;
     this.bottomRight = bottomRight;
+    this.child = child;
     launchedAsFullScreen = true;
     setDataSource(
       dataSource,

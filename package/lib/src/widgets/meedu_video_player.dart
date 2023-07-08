@@ -47,14 +47,21 @@ class MeeduVideoPlayer extends StatefulWidget {
     Responsive responsive,
   )? customControls;
 
-  const MeeduVideoPlayer(
-      {Key? key,
-      required this.controller,
-      this.header,
-      this.bottomRight,
-      this.customIcons,
-      this.customControls})
-      : super(key: key);
+  final Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? child;
+
+  const MeeduVideoPlayer({
+    Key? key,
+    required this.controller,
+    this.header,
+    this.bottomRight,
+    this.customIcons,
+    this.customControls,
+    this.child,
+  }) : super(key: key);
 
   @override
   State<MeeduVideoPlayer> createState() => _MeeduVideoPlayerState();
@@ -126,6 +133,11 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                     _.customControls =
                         widget.customControls!(context, _, _.responsive);
                   }
+
+                  if (widget.child != null) {
+                    _.child = widget.child!(context, _, _.responsive);
+                  }
+
                   return ExcludeFocus(
                     excluding: _.excludeFocus,
                     child: Stack(

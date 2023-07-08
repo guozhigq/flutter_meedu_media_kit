@@ -281,7 +281,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
                         Container(color: Colors.black38),
                         Container(
                           height: _.volume.value * widget.responsive.height / 2,
-                          color: Colors.blue,
+                          color: _.colorTheme,
                         ),
                         Container(
                             padding: const EdgeInsets.all(5),
@@ -320,7 +320,7 @@ class _ControlsContainerState extends State<ControlsContainer> {
                         Container(
                           height:
                               _.brightness.value * widget.responsive.height / 2,
-                          color: Colors.blue,
+                          color: _.colorTheme,
                         ),
                         Container(
                             padding: const EdgeInsets.all(5),
@@ -417,180 +417,190 @@ class _ControlsContainerState extends State<ControlsContainer> {
   }
 
   Widget videoControls(MeeduPlayerController _, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (!_.mobileControls) {
-          if (tappedTwice) {
-            if (_.enabledControls.desktopDoubleTapToFullScreen) {
-              _.toggleFullScreen(context);
-            }
-
-            tappedOnce(_, true);
-          } else {
-            if (_.enabledControls.desktopTapToPlayAndPause) {
-              _.togglePlay();
-            }
-            tappedOnce(_, false);
-          }
-        }
-        _.controls = !_.showControls.value;
-        _dragInitialDelta = Offset.zero;
-      },
-      onLongPressStart:
-          (_.mobileControls && _.enabledControls.onLongPressSpeedUp)
-              ? (details) {
-                  _.setPlaybackSpeed(2);
+    return Stack(
+      children: [
+        _.child ?? const SizedBox(),
+        Positioned(
+            child: GestureDetector(
+          onTap: () {
+            if (!_.mobileControls) {
+              if (tappedTwice) {
+                if (_.enabledControls.desktopDoubleTapToFullScreen) {
+                  _.toggleFullScreen(context);
                 }
-              : null,
-      onLongPressEnd: (_.mobileControls && _.enabledControls.onLongPressSpeedUp)
-          ? (details) {
-              _.setPlaybackSpeed(1);
-            }
-          : null,
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
-        if (_.mobileControls && _.enabledControls.seekSwipes) {
-          //if (!_.videoPlayerController!.value.isInitialized) {
-          //return;
-          //}
 
-          //_.controls=true;
-          final Offset position = details.localPosition;
-          if (_dragInitialDelta == Offset.zero) {
-            final Offset delta = details.delta;
-            if (details.localPosition.dx > widget.responsive.width * 0.1 &&
-                ((widget.responsive.width - details.localPosition.dx) >
-                        widget.responsive.width * 0.1 &&
-                    !gettingNotification)) {
-              _forwardDragStart(position, _);
-              _dragInitialDelta = delta;
-            } else {
-              _.customDebugPrint("##############out###############");
-              gettingNotification = true;
-            }
-          }
-          if (!gettingNotification) {
-            _forwardDragUpdate(position, _);
-          }
-        }
-
-        //_.videoPlayerController!.seekTo(position);
-      },
-      onHorizontalDragEnd: (DragEndDetails details) {
-        if (_.mobileControls && _.enabledControls.seekSwipes) {
-          //if (!_.videoPlayerController!.value.isInitialized) {
-          //return;
-          //}
-          gettingNotification = false;
-          _forwardDragEnd(_);
-        }
-      },
-      onVerticalDragUpdate: (DragUpdateDetails details) {
-        if (_.mobileControls) {
-          //if (!_.videoPlayerController!.value.isInitialized) {
-          //return;
-          //}
-          //_.controls=true;
-
-          final Offset position = details.localPosition;
-          if (_dragInitialDelta == Offset.zero) {
-            _.customDebugPrint(details.localPosition.dy);
-            if (details.localPosition.dy > widget.responsive.height * 0.1 &&
-                ((widget.responsive.height - details.localPosition.dy) >
-                    widget.responsive.height * 0.1) &&
-                !gettingNotification) {
-              final Offset delta = details.delta;
-              //if(details.localPosition.dy<30){
-              if (details.localPosition.dx >= widget.responsive.width / 2) {
-                if (_.enabledControls.volumeSwipes) {
-                  _volumeDragStart(position, _);
-                }
-                _dragInitialDelta = delta;
-                //customDebugPrint("right");
+                tappedOnce(_, true);
               } else {
-                if (_.mobileControls && _.enabledControls.brightnessSwipes) {
-                  _brightnessDragStart(position, _);
+                if (_.enabledControls.desktopTapToPlayAndPause) {
+                  _.togglePlay();
                 }
-                _dragInitialDelta = delta;
-                //customDebugPrint("left");
+                tappedOnce(_, false);
               }
-            } else {
-              _.customDebugPrint("getting Notification");
-              gettingNotification = true;
             }
-            //}
-          } else {
-            if (!gettingNotification) {
+            _.controls = !_.showControls.value;
+            _dragInitialDelta = Offset.zero;
+          },
+          onLongPressStart:
+              (_.mobileControls && _.enabledControls.onLongPressSpeedUp)
+                  ? (details) {
+                      _.setPlaybackSpeed(2);
+                    }
+                  : null,
+          onLongPressEnd:
+              (_.mobileControls && _.enabledControls.onLongPressSpeedUp)
+                  ? (details) {
+                      _.setPlaybackSpeed(1);
+                    }
+                  : null,
+          onHorizontalDragUpdate: (DragUpdateDetails details) {
+            if (_.mobileControls && _.enabledControls.seekSwipes) {
+              //if (!_.videoPlayerController!.value.isInitialized) {
+              //return;
+              //}
+
+              //_.controls=true;
+              final Offset position = details.localPosition;
+              if (_dragInitialDelta == Offset.zero) {
+                final Offset delta = details.delta;
+                if (details.localPosition.dx > widget.responsive.width * 0.1 &&
+                    ((widget.responsive.width - details.localPosition.dx) >
+                            widget.responsive.width * 0.1 &&
+                        !gettingNotification)) {
+                  _forwardDragStart(position, _);
+                  _dragInitialDelta = delta;
+                } else {
+                  _.customDebugPrint("##############out###############");
+                  gettingNotification = true;
+                }
+              }
+              if (!gettingNotification) {
+                _forwardDragUpdate(position, _);
+              }
+            }
+
+            //_.videoPlayerController!.seekTo(position);
+          },
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (_.mobileControls && _.enabledControls.seekSwipes) {
+              //if (!_.videoPlayerController!.value.isInitialized) {
+              //return;
+              //}
+              gettingNotification = false;
+              _forwardDragEnd(_);
+            }
+          },
+          onVerticalDragUpdate: (DragUpdateDetails details) {
+            if (_.mobileControls) {
+              //if (!_.videoPlayerController!.value.isInitialized) {
+              //return;
+              //}
+              //_.controls=true;
+
+              final Offset position = details.localPosition;
+              if (_dragInitialDelta == Offset.zero) {
+                _.customDebugPrint(details.localPosition.dy);
+                if (details.localPosition.dy > widget.responsive.height * 0.1 &&
+                    ((widget.responsive.height - details.localPosition.dy) >
+                        widget.responsive.height * 0.1) &&
+                    !gettingNotification) {
+                  final Offset delta = details.delta;
+                  //if(details.localPosition.dy<30){
+                  if (details.localPosition.dx >= widget.responsive.width / 2) {
+                    if (_.enabledControls.volumeSwipes) {
+                      _volumeDragStart(position, _);
+                    }
+                    _dragInitialDelta = delta;
+                    //customDebugPrint("right");
+                  } else {
+                    if (_.mobileControls &&
+                        _.enabledControls.brightnessSwipes) {
+                      _brightnessDragStart(position, _);
+                    }
+                    _dragInitialDelta = delta;
+                    //customDebugPrint("left");
+                  }
+                } else {
+                  _.customDebugPrint("getting Notification");
+                  gettingNotification = true;
+                }
+                //}
+              } else {
+                if (!gettingNotification) {
+                  if (isVolume && _.enabledControls.volumeSwipes) {
+                    _volumeDragUpdate(position, _);
+                  } else {
+                    if (_.mobileControls &&
+                        _.enabledControls.brightnessSwipes) {
+                      _brightnessDragUpdate(position, _);
+                    }
+                  }
+                }
+              }
+            }
+            //_.videoPlayerController!.seekTo(position);
+          },
+          onVerticalDragEnd: (DragEndDetails details) {
+            if (_.mobileControls) {
+              //if (!_.videoPlayerController!.value.isInitialized) {
+              // return;
+              //}
+              gettingNotification = false;
               if (isVolume && _.enabledControls.volumeSwipes) {
-                _volumeDragUpdate(position, _);
+                _volumeDragEnd(_);
               } else {
                 if (_.mobileControls && _.enabledControls.brightnessSwipes) {
-                  _brightnessDragUpdate(position, _);
+                  _brightnessDragEnd(_);
                 }
               }
             }
-          }
-        }
-        //_.videoPlayerController!.seekTo(position);
-      },
-      onVerticalDragEnd: (DragEndDetails details) {
-        if (_.mobileControls) {
-          //if (!_.videoPlayerController!.value.isInitialized) {
-          // return;
-          //}
-          gettingNotification = false;
-          if (isVolume && _.enabledControls.volumeSwipes) {
-            _volumeDragEnd(_);
-          } else {
-            if (_.mobileControls && _.enabledControls.brightnessSwipes) {
-              _brightnessDragEnd(_);
-            }
-          }
-        }
-      },
-      child: AnimatedOpacity(
-        opacity: _.showControls.value ? 1 : 0,
-        duration: _.durations.controlsDuration,
-        child: AnimatedContainer(
+          },
+          child: AnimatedOpacity(
+            opacity: _.showControls.value ? 1 : 0,
             duration: _.durations.controlsDuration,
-            color: _.showControls.value ? Colors.black26 : Colors.transparent,
-            child: Stack(
-              children: [
-                if (_.enabledControls.doubleTapToSeek && (_.mobileControls))
-                  Positioned.fill(
-                    bottom: widget.responsive.height * 0.20,
-                    top: widget.responsive.height * 0.20,
-                    child: VideoCoreForwardAndRewindLayout(
-                      responsive: widget.responsive,
-                      rewind: GestureDetector(
-                        // behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          if (_.doubleTapCount.value != 0 || tappedTwice) {
-                            _rewind(context, _);
-                            tappedOnce(_, true);
-                          } else {
-                            tappedOnce(_, false);
-                          }
-                        },
+            child: AnimatedContainer(
+                duration: _.durations.controlsDuration,
+                color:
+                    _.showControls.value ? Colors.black26 : Colors.transparent,
+                child: Stack(
+                  children: [
+                    if (_.enabledControls.doubleTapToSeek && (_.mobileControls))
+                      Positioned.fill(
+                        bottom: widget.responsive.height * 0.20,
+                        top: widget.responsive.height * 0.20,
+                        child: VideoCoreForwardAndRewindLayout(
+                          responsive: widget.responsive,
+                          rewind: GestureDetector(
+                            // behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              if (_.doubleTapCount.value != 0 || tappedTwice) {
+                                _rewind(context, _);
+                                tappedOnce(_, true);
+                              } else {
+                                tappedOnce(_, false);
+                              }
+                            },
+                          ),
+                          forward: GestureDetector(
+                            // behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              if (_.doubleTapCount.value != 0 || tappedTwice) {
+                                _forward(context, _);
+                                tappedOnce(_, true);
+                              } else {
+                                tappedOnce(_, false);
+                              }
+                            },
+                            //behavior: HitTestBehavior.,
+                          ),
+                        ),
                       ),
-                      forward: GestureDetector(
-                        // behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          if (_.doubleTapCount.value != 0 || tappedTwice) {
-                            _forward(context, _);
-                            tappedOnce(_, true);
-                          } else {
-                            tappedOnce(_, false);
-                          }
-                        },
-                        //behavior: HitTestBehavior.,
-                      ),
-                    ),
-                  ),
-                IgnorePointer(
-                    ignoring: !_.showControls.value, child: widget.child),
-              ],
-            )),
-      ),
+                    IgnorePointer(
+                        ignoring: !_.showControls.value, child: widget.child),
+                  ],
+                )),
+          ),
+        ))
+      ],
     );
   }
 
