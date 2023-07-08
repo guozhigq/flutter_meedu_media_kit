@@ -43,7 +43,7 @@ class _BasicExamplePageState extends State<BasicExamplePage> {
               "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
         ),
         autoplay: true,
-        looping: false);
+        looping: PlaylistMode.none);
   }
 
   @override

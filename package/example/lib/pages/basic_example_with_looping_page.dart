@@ -42,7 +42,7 @@ class _BasicExampleWithLoopingPageState
               "https://movietrailers.apple.com/movies/paramount/the-spongebob-movie-sponge-on-the-run/the-spongebob-movie-sponge-on-the-run-big-game_h720p.mov",
         ),
         autoplay: true,
-        looping: true);
+        looping: PlaylistMode.single);
   }
 
   @override

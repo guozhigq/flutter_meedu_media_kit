@@ -92,7 +92,7 @@ class MeeduPlayerController {
   Rx<bool> forwardIcons = false.obs;
   // NO OBSERVABLES
   bool _isSliderMoving = false;
-  bool _looping = false;
+  PlaylistMode _looping = PlaylistMode.none;
   bool _autoPlay = false;
   final bool _listenersInitialized = false;
 
@@ -193,7 +193,7 @@ class MeeduPlayerController {
   double get playbackSpeed => _playbackSpeed.value;
 
   /// [looping] is true if the player is looping
-  bool get looping => _looping;
+  PlaylistMode get looping => _looping;
 
   /// [autoPlay] is true if the player has enabled the autoplay
   bool get autoplay => _autoPlay;
@@ -358,7 +358,8 @@ class MeeduPlayerController {
   }
 
   /// create a new video_player controller
-  Future<Player> _createVideoController(DataSource dataSource) async {
+  Future<Player> _createVideoController(
+      DataSource dataSource, PlaylistMode looping) async {
     Player player = _videoPlayerController ??
         Player(
             configuration: const PlayerConfiguration(
@@ -376,7 +377,7 @@ class MeeduPlayerController {
     }
 
     _videoController = _videoController ?? VideoController(player);
-    player.setPlaylistMode(PlaylistMode.loop);
+    player.setPlaylistMode(looping);
 
     //dataSource = await checkIfm3u8AndNoLinks(dataSource);
     if (dataSource.type == DataSourceType.asset) {
@@ -440,36 +441,36 @@ class MeeduPlayerController {
   void startListeners() {
     subscriptions.addAll(
       [
-        videoPlayerController!.streams.playing.listen((event) {
+        videoPlayerController!.stream.playing.listen((event) {
           if (event) {
             playerStatus.status.value = PlayerStatus.playing;
           } else {
             //playerStatus.status.value = PlayerStatus.paused;
           }
         }),
-        videoPlayerController!.streams.completed.listen((event) {
+        videoPlayerController!.stream.completed.listen((event) {
           if (event) {
             playerStatus.status.value = PlayerStatus.completed;
           } else {
             //            playerStatus.status.value = PlayerStatus.playing;
           }
         }),
-        videoPlayerController!.streams.position.listen((event) {
+        videoPlayerController!.stream.position.listen((event) {
           _position.value = event;
           if (!_isSliderMoving) {
             _sliderPosition.value = event;
           }
         }),
-        videoPlayerController!.streams.duration.listen((event) {
+        videoPlayerController!.stream.duration.listen((event) {
           duration.value = event;
         }),
-        videoPlayerController!.streams.buffer.listen((event) {
+        videoPlayerController!.stream.buffer.listen((event) {
           _buffered.value = event;
         }),
-        videoPlayerController!.streams.buffering.listen((event) {
+        videoPlayerController!.stream.buffering.listen((event) {
           isBuffering.value = event;
         }),
-        videoPlayerController!.streams.volume.listen((event) {
+        videoPlayerController!.stream.volume.listen((event) {
           if (!mute.value && _volumeBeforeMute != event) {
             _volumeBeforeMute = event / 100;
           }
@@ -490,7 +491,7 @@ class MeeduPlayerController {
   Future<void> setDataSource(
     DataSource dataSource, {
     bool autoplay = true,
-    bool looping = false,
+    PlaylistMode looping = PlaylistMode.none,
     Duration seekTo = Duration.zero,
   }) async {
     try {
@@ -504,7 +505,8 @@ class MeeduPlayerController {
         await pause(notify: false);
       }
 
-      _videoPlayerController = await _createVideoController(dataSource);
+      _videoPlayerController =
+          await _createVideoController(dataSource, _looping);
 
       // set the video duration
       customDebugPrint("Duration is ${_videoPlayerController!.state.duration}");
@@ -844,7 +846,7 @@ class MeeduPlayerController {
     BuildContext context, {
     required DataSource dataSource,
     bool autoplay = false,
-    bool looping = false,
+    PlaylistMode looping = PlaylistMode.none,
     Widget? header,
     Widget? bottomRight,
     Duration seekTo = Duration.zero,

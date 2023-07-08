@@ -235,18 +235,18 @@ packages:
     dependency: transitive
     description:
       name: media_kit
-      sha256: "080cfb5af8d04f8cc454cb4c5ea34b19de5b8e1a1b3af62a34e766364b5244ad"
+      sha256: "8c7d9417bed724a3fcaadd91c722fea042737cafb153aa1f1e6461a0fee683a3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.11"
+    version: "1.0.2"
   media_kit_libs_android_video:
     dependency: transitive
     description:
       name: media_kit_libs_android_video
-      sha256: daeaeb254aee1089fa77f11cbeb0864a1238cbd0cb2a1c5ab9b2a2e66cc5ff42
+      sha256: "228c3b182831e194bb178d4d22a1839af812c917cb76fe87d6fdc9ea4328dc81"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.1.1"
   media_kit_libs_ios_video:
     dependency: transitive
     description:
@@ -283,18 +283,18 @@ packages:
     dependency: transitive
     description:
       name: media_kit_native_event_loop
-      sha256: "521125e534603c3f603b93283db3938f557f33ecc383fbd62edd4beb3bf73747"
+      sha256: "5351f0c28124b5358756515d8619abad182cdefe967468d7fb5b274737cc2f59"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.6"
   media_kit_video:
     dependency: transitive
     description:
       name: media_kit_video
-      sha256: "89d3c2cdb0f74d1bb597a9c9a7678f656fe538d20620ad1317b7354fd5d1af15"
+      sha256: d31a0eab80cafadccdedb663d8a127750e38b8c75c1aa83d8943f8119b88cf99
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.12"
+    version: "1.0.2"
   meedu:
     dependency: transitive
     description:
