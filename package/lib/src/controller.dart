@@ -311,7 +311,7 @@ class MeeduPlayerController {
     _errorText = errorText;
     tag = DateTime.now().microsecondsSinceEpoch.toString();
     this.loadingWidget = loadingWidget ??
-        SpinKitWave(
+        SpinKitCircle(
           size: 30,
           color: colorTheme,
         );
@@ -376,6 +376,17 @@ class MeeduPlayerController {
           UniversalPlatform.isWindows
               ? dataSource.audioSource!.replaceAll(';', '\\;')
               : dataSource.audioSource!.replaceAll(':', '\\:'));
+    }
+    if (dataSource.subFiles != '' && dataSource.subFiles != null) {
+      var pp = player.platform as libmpvPlayer;
+      await pp.setProperty(
+          'sub-files',
+          UniversalPlatform.isWindows
+              ? dataSource.subFiles!.replaceAll(';', '\\;')
+              : dataSource.subFiles!.replaceAll(':', '\\:'));
+      await pp.setProperty("subs-with-matching-audio", "no");
+      await pp.setProperty("sub-forced-only", "yes");
+      await pp.setProperty("blend-subtitles", "video");
     }
 
     _videoController = _videoController ?? VideoController(player);

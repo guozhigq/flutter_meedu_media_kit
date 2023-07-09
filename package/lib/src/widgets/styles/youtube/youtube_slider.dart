@@ -20,7 +20,7 @@ class YoutubePlayerSlider extends StatelessWidget {
                   duration: const Duration(milliseconds: 300),
                   color: Colors.white30,
                   width: constraints.maxWidth * _.bufferedPercent.value,
-                  height: 3,
+                  height: 10,
                 );
               },
             );
@@ -33,6 +33,7 @@ class YoutubePlayerSlider extends StatelessWidget {
               if (value > max || max <= 0) {
                 return Container();
               }
+              // return SizedBox();
               return SizedBox(
                 height: 10,
                 child: SliderTheme(
@@ -40,7 +41,8 @@ class YoutubePlayerSlider extends StatelessWidget {
                     trackShape: MSliderTrackShape(),
                     thumbColor: _.colorTheme,
                     activeTrackColor: _.colorTheme,
-                    trackHeight: 4,
+                    inactiveTrackColor: _.colorTheme.withAlpha(75),
+                    // trackHeight: 10,
                     thumbShape:
                         const RoundSliderThumbShape(enabledThumbRadius: 0.0),
                   ),
@@ -48,7 +50,7 @@ class YoutubePlayerSlider extends StatelessWidget {
                     min: 0,
                     divisions: _.duration.value.inSeconds,
                     value: value.toDouble(),
-                    thumbColor: Colors.transparent,
+                    thumbColor: _.colorTheme,
                     onChangeStart: (v) {
                       _.onChangedSliderStart();
                     },
@@ -81,7 +83,7 @@ class MSliderTrackShape extends RoundedRectSliderTrackShape {
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    const double trackHeight = 1;
+    const double trackHeight = 2;
     final double trackLeft = offset.dx;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2 + 4;

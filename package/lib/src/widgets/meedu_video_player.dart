@@ -4,6 +4,7 @@ import 'package:flutter_meedu_media_kit/src/widgets/styles/controls_container.da
 import 'package:flutter_meedu_media_kit/src/widgets/styles/primary/primary_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/secondary/secondary_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/youtube/youtube_player_controls.dart';
+import 'package:flutter_meedu_media_kit/src/widgets/styles/youtube/youtube_slider.dart';
 import '../helpers/shortcuts/intent_action_map.dart';
 
 /// An ActionDispatcher that logs all the actions that it invokes.
@@ -105,7 +106,7 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
         child: MeeduPlayerProvider(
           controller: widget.controller,
           child: Container(
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.background,
               child: LayoutBuilder(
                 builder: (ctx, constraints) {
                   MeeduPlayerController _ = widget.controller;
@@ -199,6 +200,13 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                           ControlsContainer(
                             responsive: _.responsive,
                             child: _.customControls!,
+                          ),
+                        if (_.controlsStyle == ControlsStyle.youtube)
+                          const Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: YoutubePlayerSlider(),
                           )
                       ],
                     ),
