@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meedu_media_kit/meedu_player.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/controls_container.dart';
+import 'package:flutter_meedu_media_kit/src/widgets/styles/live/live_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/primary/primary_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/secondary/secondary_player_controls.dart';
 import 'package:flutter_meedu_media_kit/src/widgets/styles/youtube/youtube_player_controls.dart';
@@ -192,6 +193,11 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.youtube)
                           YoutubeVideoPlayerControls(
+                            responsive: _.responsive,
+                          ),
+                        if (_.controlsEnabled &&
+                            _.controlsStyle == ControlsStyle.live)
+                          LiveVideoPlayerControls(
                             responsive: _.responsive,
                           ),
                         if (_.controlsEnabled &&
