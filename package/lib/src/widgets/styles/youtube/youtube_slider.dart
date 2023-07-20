@@ -42,6 +42,8 @@ class YoutubePlayerSlider extends StatelessWidget {
                     thumbColor: _.colorTheme,
                     activeTrackColor: _.colorTheme,
                     inactiveTrackColor: _.colorTheme.withAlpha(75),
+                    tickMarkShape:
+                        const RoundSliderTickMarkShape(tickMarkRadius: 0),
                     // trackHeight: 10,
                     thumbShape:
                         const RoundSliderThumbShape(enabledThumbRadius: 0.0),
